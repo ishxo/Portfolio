@@ -6,7 +6,7 @@ import { FooterLinkType } from "@/app/types/footerlinks";
 import { HeroType } from "@/app/types/hero";
 
 // Hero
-export const HeroData: HeroType[] = [
+const HeroData: HeroType[] = [
   { imgSrc: "/images/project/rbtex_web.png" },
   { imgSrc: "/images/project/rbtex_web1.png" },
   { imgSrc: "/images/project/rbtex_web2.png" },
@@ -24,15 +24,7 @@ export const HeroData: HeroType[] = [
   { imgSrc: "/images/project/rbtm.png" },
 ];
 
-// Nav Links
-export const NavLinkData: NavLinkType[] = [
-  { label: "who_am_i", href: "/#hero" },
-  { label: "my_journey", href: "/#companies" },
-  { label: "projects", href: "/#project" },
-  { label: "contact_me", href: "/#contact" },
-];
-
-export const projects: ProjectType[] = [
+const projects: ProjectType[] = [
   {
     title: "Pet Sharing!",
     imgSrc: "/images/project/pet_sharing.png",
@@ -86,7 +78,7 @@ export const projects: ProjectType[] = [
 ];
 
 // Companies
-export const CompaniesData: CompaniesType[] = [
+const CompaniesData: CompaniesType[] = [
   {
     imgSrc: "/images/companies/gsb.webp",
     name: "Golden SB Tech Group",
@@ -119,8 +111,16 @@ export const CompaniesData: CompaniesType[] = [
   },
 ];
 
+// Nav Links
+const NavLinkData: NavLinkType[] = [
+  { label: "who_am_i", href: "/#hero" },
+  { label: "my_journey", href: "/#companies" },
+  { label: "projects", href: "/#project" },
+  { label: "contact_me", href: "/#contact" },
+];
+
 // Footer Links
-export const FooterLinkData: FooterLinkType[] = [
+const FooterLinkData: FooterLinkType[] = [
   {
     section: "Company",
     links: [
@@ -135,8 +135,8 @@ export const FooterLinkData: FooterLinkType[] = [
 export const GET = () =>
   NextResponse.json({
     HeroData,
-    NavLinkData,
-    CompaniesData,
-    FooterLinkData,
     projects,
+    CompaniesData,
+    NavLinkData,
+    FooterLinkData,
   });
