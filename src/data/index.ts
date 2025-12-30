@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { ProjectType } from "@/app/types/project";
 import { NavLinkType } from "@/app/types/navlink";
 import { CompaniesType } from "@/app/types/companies";
@@ -6,7 +5,7 @@ import { FooterLinkType } from "@/app/types/footerlinks";
 import { HeroType } from "@/app/types/hero";
 
 // Hero
-const HeroData: HeroType[] = [
+export const HeroData: HeroType[] = [
   { imgSrc: "/images/project/rbtex_web.png" },
   { imgSrc: "/images/project/rbtex_web1.png" },
   { imgSrc: "/images/project/rbtex_web2.png" },
@@ -24,7 +23,8 @@ const HeroData: HeroType[] = [
   { imgSrc: "/images/project/rbtm.png" },
 ];
 
-const projects: ProjectType[] = [
+// Projects
+export const projects: ProjectType[] = [
   {
     title: "Pet Sharing!",
     imgSrc: "/images/project/pet_sharing.png",
@@ -36,7 +36,7 @@ const projects: ProjectType[] = [
   {
     title: "Khosrov",
     imgSrc: "/images/project/khosrov.png",
-    sharing: "Cannot be shared",
+    sharing: "Cannot be shared", 
   },
   {
     title: "Nfty",
@@ -78,7 +78,7 @@ const projects: ProjectType[] = [
 ];
 
 // Companies
-const CompaniesData: CompaniesType[] = [
+export const CompaniesData: CompaniesType[] = [
   {
     imgSrc: "/images/companies/gsb.webp",
     name: "Golden SB Tech Group",
@@ -111,16 +111,16 @@ const CompaniesData: CompaniesType[] = [
   },
 ];
 
-// Nav Links
-const NavLinkData: NavLinkType[] = [
+// Nav links
+export const NavLinkData: NavLinkType[] = [
   { label: "who_am_i", href: "/#hero" },
   { label: "my_journey", href: "/#companies" },
   { label: "projects", href: "/#project" },
   { label: "contact_me", href: "/#contact" },
 ];
 
-// Footer Links
-const FooterLinkData: FooterLinkType[] = [
+// Footer links
+export const FooterLinkData: FooterLinkType[] = [
   {
     section: "Company",
     links: [
@@ -131,14 +131,3 @@ const FooterLinkData: FooterLinkType[] = [
     ],
   },
 ];
-
-export const dynamic = "force-static";
-
-export const GET = () =>
-  NextResponse.json({
-    HeroData,
-    projects,
-    CompaniesData,
-    NavLinkData,
-    FooterLinkData,
-  });

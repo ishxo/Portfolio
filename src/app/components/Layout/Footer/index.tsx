@@ -1,29 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import Logo from "../Header/Logo";
 import { Icon } from "@iconify/react";
-import { FooterLinkType } from "@/app/types/footerlinks";
+import Logo from "../Header/Logo";
 import { useTranslation } from "react-i18next";
+import { FooterLinkData } from "@/data";
 
 const Footer = () => {
   const { t } = useTranslation();
-  const [footerlink, SetFooterlink] = useState<FooterLinkType[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/data");
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data = await res.json();
-        SetFooterlink(data.FooterLinkData);
-      } catch (error) {
-        console.error("Error fetching services:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <footer>
@@ -33,6 +17,7 @@ const Footer = () => {
             <Logo />
           </div>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-16 xl:gap-8">
           <div className="lg:col-span-4 sm:col-span-2 flex flex-col gap-5">
             <div className="flex gap-4">
@@ -65,19 +50,20 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-          {/* CLOUMN-2 */}
+
+          {/* COLUMN-2 */}
           <div className="lg:col-span-4 col-span-1">
             <div className="flex gap-20">
-              {footerlink.map((product, i) => (
+              {FooterLinkData.map((section, i) => (
                 <div key={i} className="group relative col-span-2">
                   <ul>
-                    {product.links.map((item, i) => (
-                      <li key={i} className="mb-2">
+                    {section.links.map((linkItem, j) => (
+                      <li key={j} className="mb-2">
                         <Link
-                          href={item.href}
+                          href={linkItem.href}
                           className="text-darkblue/60 dark:text-white/60 hover:text-primary dark:hover:text-primary text-base font-normal mb-6"
                         >
-                          {t(`nav.${item.label}`)}
+                          {t(`nav.${linkItem.label}`)}
                         </Link>
                       </li>
                     ))}
@@ -86,10 +72,12 @@ const Footer = () => {
               ))}
             </div>
           </div>
+
+          {/* COLUMN-3 */}
           <div className="lg:col-span-4 col-span-1">
             <div className="flex gap-2">
               <Icon
-                icon={"tabler:map-pin"}
+                icon="tabler:map-pin"
                 width={22}
                 height={22}
                 className="text-lightgrey"
@@ -102,30 +90,32 @@ const Footer = () => {
               >
                 <p className="text-base font-normal text-offwhite hover:text-primary dark:hover:text-primary">
                   {t("footer.armenia")}
-                </p>{" "}
+                </p>
               </a>
             </div>
+
             <div className="flex gap-2 mt-6">
               <Icon
-                icon={"tabler:phone"}
+                icon="tabler:phone"
                 width={22}
                 height={22}
                 className="text-lightgrey"
               />
-              <Link href="tel:+ 374 93 14 32 92">
+              <Link href="tel:+37493143292">
                 <p className="text-base font-normal text-offwhite hover:text-primary dark:hover:text-primary">
                   +374 93 14 32 92
                 </p>
               </Link>
             </div>
+
             <div className="flex gap-2 mt-6">
               <Icon
-                icon={"tabler:mail"}
+                icon="tabler:mail"
                 width={22}
                 height={22}
                 className="text-lightgrey"
               />
-              <Link href="mailto: ishkhankostanyan@gmail.com">
+              <Link href="mailto:ishkhankostanyan@gmail.com">
                 <p className="text-base font-normal text-offwhite hover:text-primary dark:hover:text-primary">
                   ishkhankostanyan@gmail.com
                 </p>
