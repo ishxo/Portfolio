@@ -1,12 +1,19 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
+type FormData = {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phnumber: string;
+  Message: string;
+};
 
 const ContactForm = () => {
   const { t } = useTranslation();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstname: "",
     lastname: "",
     email: "",
@@ -23,55 +30,61 @@ const ContactForm = () => {
     );
     setIsFormValid(isValid);
   }, [formData]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name as keyof FormData]: value,
     }));
   };
+
   const reset = () => {
-    formData.firstname = "";
-    formData.lastname = "";
-    formData.email = "";
-    formData.phnumber = "";
-    formData.Message = "";
+    setFormData({
+      firstname: "",
+      lastname: "",
+      email: "",
+      phnumber: "",
+      Message: "",
+    });
   };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoader(true);
 
-    fetch("https://formsubmit.co/ajax/ishkhankostanyan@gmail.com", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        Name: formData.firstname,
-        LastName: formData.lastname,
-        Email: formData.email,
-        PhoneNo: formData.phnumber,
-        Message: formData.Message,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          setShowThanks(true);
-          reset();
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/ishkhankostanyan@gmail.com",
+        {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            Name: formData.firstname,
+            LastName: formData.lastname,
+            Email: formData.email,
+            PhoneNo: formData.phnumber,
+            Message: formData.Message,
+          }),
+        },
+      );
 
-          setTimeout(() => {
-            setShowThanks(false);
-          }, 5000);
-        }
-
+      const data = await response.json();
+      if (data.success) {
+        setShowThanks(true);
         reset();
-      })
-      .catch((error) => {
-        setLoader(false);
-        console.log(error.message);
-      });
+        setTimeout(() => setShowThanks(false), 5000);
+      }
+      reset();
+    } catch (error: any) {
+      console.error(error?.message || "Unknown error");
+    } finally {
+      setLoader(false);
+    }
   };
+
   return (
     <section id="contact" className="scroll-mt-12">
       <div className="container">
@@ -83,95 +96,67 @@ const ContactForm = () => {
               className="flex flex-wrap w-full m-auto justify-between"
             >
               <div className="sm:flex gap-6 w-full">
-                <div className="mx-0 my-2.5 flex-1">
-                  <label
-                    htmlFor="fname"
-                    className="pb-3 inline-block text-base"
-                  >
-                    {t(`contact.first_name`)}
-                  </label>
-                  <input
-                    id="fname"
-                    type="text"
-                    name="firstname"
-                    value={formData.firstname}
-                    onChange={handleChange}
-                    className="w-full text-base px-4 rounded-lg border-black/20 dark:border-white/20 py-2.5 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
-                  />
-                </div>
-                <div className="mx-0 my-2.5 flex-1">
-                  <label
-                    htmlFor="lname"
-                    className="pb-3 inline-block text-base"
-                  >
-                    {t(`contact.last_name`)}
-                  </label>
-                  <input
-                    id="lname"
-                    type="text"
-                    name="lastname"
-                    value={formData.lastname}
-                    onChange={handleChange}
-                    className="w-full text-base px-4 rounded-lg border-black/20 dark:border-white/20 py-2.5 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
-                  />
-                </div>
+                {["firstname", "lastname"].map((field) => (
+                  <div key={field} className="mx-0 my-2.5 flex-1">
+                    <label
+                      htmlFor={field}
+                      className="pb-3 inline-block text-base"
+                    >
+                      {t(`contact.${field.replace("name", "_name")}`)}
+                    </label>
+                    <input
+                      id={field}
+                      type="text"
+                      name={field}
+                      value={formData[field as keyof FormData]}
+                      onChange={handleChange}
+                      className="w-full text-base px-4 rounded-lg border-black/20 dark:border-white/20 py-2.5 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
+                    />
+                  </div>
+                ))}
               </div>
               <div className="sm:flex gap-6 w-full">
-                <div className="mx-0 my-2.5 flex-1">
-                  <label
-                    htmlFor="email"
-                    className="pb-3 inline-block text-base"
-                  >
-                    {t(`contact.email`)}
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full text-base px-4 rounded-lg border-black/20 dark:border-white/20 py-2.5 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
-                  />
-                </div>
-                <div className="mx-0 my-2.5 flex-1">
-                  <label
-                    htmlFor="Phnumber"
-                    className="pb-3 inline-block text-base"
-                  >
-                    {t(`contact.phone`)}
-                  </label>
-                  <input
-                    id="Phnumber"
-                    type="tel"
-                    name="phnumber"
-                    value={formData.phnumber}
-                    onChange={handleChange}
-                    className="w-full text-base px-4 py-2.5 rounded-lg border-black/20 dark:border-white/20 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
-                  />
-                </div>
+                {["email", "phnumber"].map((field) => (
+                  <div key={field} className="mx-0 my-2.5 flex-1">
+                    <label
+                      htmlFor={field}
+                      className="pb-3 inline-block text-base"
+                    >
+                      {t(`contact.${field === "phnumber" ? "phone" : field}`)}
+                    </label>
+                    <input
+                      id={field}
+                      type={field === "email" ? "email" : "tel"}
+                      name={field}
+                      value={formData[field as keyof FormData]}
+                      onChange={handleChange}
+                      className="w-full text-base px-4 py-2.5 rounded-lg border-black/20 dark:border-white/20 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
+                    />
+                  </div>
+                ))}
               </div>
               <div className="w-full mx-0 my-2.5 flex-1">
-                <label htmlFor="message" className="text-base inline-block">
+                <label htmlFor="Message" className="text-base inline-block">
                   {t(`contact.message`)}
                 </label>
                 <textarea
-                  id="message"
+                  id="Message"
                   name="Message"
                   value={formData.Message}
                   onChange={handleChange}
                   className="w-full mt-2 px-5 py-3 rounded-lg border-black/20 dark:border-white/20 border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:outline-0"
-                ></textarea>
+                />
               </div>
               <div className="mx-0 my-2.5 w-full">
                 <button
                   type="submit"
                   disabled={!isFormValid || loader}
                   className={`border leading-none px-6 text-lg font-medium py-4 rounded-lg 
-                    ${
-                      !isFormValid || loader
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-primary border-primary text-white hover:bg-transparent hover:text-primary cursor-pointer"
-                    }`}
+                  ${
+                    !isFormValid || loader
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : "bg-primary border-primary text-white hover:bg-transparent hover:text-primary cursor-pointer"
+                  }`}
                 >
                   {t(`contact.submit`)}
                 </button>
