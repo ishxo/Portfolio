@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "who_am_i": "Who Am I",
+    "my_journey": "My Journey",
+    "projects": "Projects",
+    "contact_me": "Contact Me"
+  },
+  "hero": {
+    "who": "Who",
+    "am_i": "am I",
+    "questionMark": "?",
+    "location": "based in Armenia",
+    "subtitle1": "The developer who transforms complex challenges into simple,",
+    "subtitle2": "beautiful solutions.",
+    "web": "web",
+    "mobile": "mobile",
+    "subtitle3": " I design and build applications that delight users and drive results.",
+    "explore": "explore",
+    "contact": "contact"
+  },
+  "journey": {
+    "title": "companies i’ve worked at",
+    "mobile": "react native developer",
+    "web": "web development",
+    "web_mobile": "web & mobile development",
+    "codeep_text": "Cooperation with the Russian Market. Developed and maintained a mobile application, implementing new features and enhancements. Followed established engineering best practices, including version control and structured development workflows. Worked with a technology stack including React Native, Redux, and GraphQL.",
+    "locator_text": "I Have Worked For The Native market. Personally developed two React Native applications, Khosrov and Road Monitoring, from scratch. Implemented user interfaces, with the focus on performance, scalability, and responsiveness. Contributed to a project stack including React Native, Redux, and PHP.",
+    "blockstars_text": "Cooperation with the Singapore Market. Developed and maintained the NFTY NFT marketplace mobile application using React Native, Redux, Web3, and Node.js, delivering user-facing features and ensuring efficient performance and stability across releases. Blockstars — Native Market Contributed to the Blockstars web platform, implementing frontend components using Gatsby.js and Styled Components, with backend integrations supported by Node.js.",
+    "vivaro_text": "Worked as a Software Engineer contributing to the development and maintenance of high-quality gambling software products. Played a key role in delivering frontend functionality for Lucky Lotto, Lotto 90, and Bonus Bingo, implementing user-facing features using React and MobX with integrations to .NET and C# backend services. Applied structured development workflows and engineering best practices to ensure performance, stability, and consistent delivery across production releases.",
+    "gsb_text": "Joined as a Frontend Developer and assumed end-to-end ownership of building a cryptocurrency exchange from the ground up. Defined the frontend architecture and platform structure, led UI/UX direction in collaboration with designers, and drove implementation standards across the product. Built and coordinated a cross-functional team of frontend, backend (Golang), blockchain engineers, and designers, managing delivery through PIO ownership and Scrum processes. Promoted to Frontend Lead, where I led development using Next.js, MUI, React Query, and Zustand, setting technical direction, reviewing code, and ensuring scalability and performance. Expanded leadership scope to mobile development, overseeing and delivering React Native applications using Iconsax, Zustand, and React Query, and ensuring seamless integration with backend and blockchain systems."
+  },
+
+  "projects": {
+    "participated": "projects I’ve Worked On"
+  },
+  "contact": {
+    "get_in": "get in touch",
+    "first_name": "first name",
+    "last_name": "last name",
+    "email": "email address",
+    "phone": "phone number",
+    "message": "message",
+    "submit": "submit"
+  },
+  "footer": {
+    "armenia": "Armenia Yerevan"
+  }
+}
