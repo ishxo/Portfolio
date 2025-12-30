@@ -132,6 +132,8 @@ const FooterLinkData: FooterLinkType[] = [
   },
 ];
 
+export const dynamic = "force-static";
+
 export const GET = () =>
   NextResponse.json({
     HeroData,
